@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
-#include "pico/time.h"
 
 #define red_pin 11
 #define yellow_pin 12
 #define green_pin 13
 
-int state = 0;
+int cont = 0;
 
 //  Função que inicializa os pinos 
 void incicializar_pinos(){
@@ -43,7 +42,7 @@ void luz_verde(){
 
 // Função de callback do temporizador 
 bool repeating_timer_callback(struct repeating_timer *t){
-    switch(state){
+    switch(cont){
         case 0: 
             luz_vermelha();
             break;
@@ -55,10 +54,10 @@ bool repeating_timer_callback(struct repeating_timer *t){
             break;
     }
     
-    state++; // Avança para para a próxima cor 
+    cont++; // Avança para para a próxima cor 
 
-    if(state > 2){
-        state = 0;
+    if(cont > 2){
+        cont = 0;
     }
     return true; // Retorna true para continuar o temporizador 
 }   
